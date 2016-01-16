@@ -1,17 +1,23 @@
-
-// user, colWidth
-
+//
 var steps=[];
 var testindex = 0;
-var loadInProgress = false;//This is set to true when a page is still loading
+var loadInProgress = false;
+
+// 
+var args = require('system').args;
+var report = args[1];
+var url = args[2];
+var token = args[3];
+var pageLoadTime = args[4];
 var user = {
-    "id": "5671a1be6b54deaf479b6c93",
-    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzaWQiOiI1NjcxYTFiZTZiNTRkZWFmNDc5YjZjOTMiLCJpYXQiOjE0NTA2Njk1MDF9.SaJkLa7c1Zt5i7YS3JstcBiWvCwA2v_as-r7q3ATfng",
-    "organization": "immap",
-    "username": "pfitzpaddy",
-    "email": "pfitzgerald@immap.org",
+    "username": "print",
     "roles": [ "USER" ]
 }
+
+// set token
+user.token = token;
+
+// token = eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzaWQiOiI1Njk3MzUzM2U2NzgwMzYzMzFjOTY2ZDciLCJpYXQiOjE0NTI3NTEzOTN9.7Drz7e8PADCnhTy-cTsGH5G8SMpxjbLJM94GQWXM0UI
 
 /*********SETTINGS*********************/
 var webPage = require('webpage');
@@ -21,9 +27,6 @@ page.viewportSize = { width: 1024, height: 1448 };
 page.settings.loadImages = true; //Script is much faster with this field set to false
 phantom.cookiesEnabled = true;
 phantom.javascriptEnabled = true;
-page.customHeaders = {
-  "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzaWQiOiI1NjcxYTFiZTZiNTRkZWFmNDc5YjZjOTMiLCJpYXQiOjE0NTA2Njk1MDF9.SaJkLa7c1Zt5i7YS3JstcBiWvCwA2v_as-r7q3ATfng"
-};
 /*********SETTINGS END*****************/
 
 console.log('All settings loaded, start with execution');
@@ -33,53 +36,32 @@ page.onConsoleMessage = function(msg) {
 /**********DEFINE STEPS THAT FANTOM SHOULD DO***********************/
 steps = [
 
-    //Step 1 - Write localstorage
+    // Step 1 - Set localStorage
     function(){
-        console.log('Step 1 - Write localstorage');
-        localStorage.setItem('auth_token', user);
-    },
-    //Step 2 - Read localstorage
-    function(){
-        console.log('Step 2 - Read storage');
-        console.log(localStorage.getItem('auth_token'));
+        //
+        console.log('Step 1 - Set localStorage');
+        //
+        page.open(url, function(status){
+            page.evaluate(function(user){
+                // localStorage.clear();
+                localStorage.setItem('auth_token', JSON.stringify(user));
+            }, user);
+        });
     },
 
-    //Step 3 - Open ReportHub home page
+    // Step 2 - Open ReportHub home page
     function(){
-        console.log('Step 3 - Open ReportHub home page');
-        page.open("http://192.168.33.10/#/who/dews/afghanistan/all", function(status){
-        // page.open("http://192.168.33.10/#/immap/watchkeeper/kenya", function(status){
-        // page.open("http://192.168.33.10/#/immap/drr/flood/afghanistan", function(status){
-            //
-        });
-    },
-    //Step 4 - Set username (username already focused)
-    function(){
-        console.log('Step 4 - Set username');
-        page.sendEvent("keypress", "pfitzpaddy");
-
-    },
-    //Step 5 - Set password
-    function(){
-        // almost working
-        console.log('Step 5 - Set password');
-        page.evaluate(function(){
-            $("#ngm-password").focus();
-        });
-        page.sendEvent("keypress", "P@trick7");
-    },    
-    //Step 6 - Populate and submit the login form
-    function(){
-        console.log('Step 6 - Submit the login form');
-        page.evaluate(function(){
-            $("#ngm-login-submit").click();
-        });
+        // //
+        console.log('Step 2 - Open ReportHub home page');
+        //
+        page.open(url, function(status){});
     }
+
 ];
 /**********END STEPS THAT FANTOM SHOULD DO***********************/
 
 //Execute steps one by one
-interval = setInterval(executeRequestsStepByStep, 50);
+interval = setInterval(executeRequestsStepByStep, 100);
 
 function executeRequestsStepByStep(){
     if (loadInProgress == false && typeof steps[testindex] == "function") {
@@ -136,11 +118,13 @@ function print(){
             $("#ngm-report-extracted").css({ 'display': 'block' });
         });
         
-        // create pdf
-        page.render('pdf/report_' + Math.round(new Date() / 1000) + '.pdf');
+        // Create pdf
+        // page.render('/home/ubuntu/nginx/www/ngm-reportPrint/pdf/report_' + Math.round(new Date() / 1000) + '.pdf');
+        page.render('/home/ubuntu/nginx/www/ngm-reportPrint/pdf/' + report + '.pdf');
+        
         phantom.exit();
 
-    }, 7600);
+    }, pageLoadTime);
 }
 
 /**
