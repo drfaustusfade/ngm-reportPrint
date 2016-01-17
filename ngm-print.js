@@ -3,7 +3,8 @@ var steps=[];
 var testindex = 0;
 var loadInProgress = false;
 
-// 
+//
+var fs = require('fs');
 var args = require('system').args;
 var report = args[1];
 var url = args[2];
@@ -118,10 +119,13 @@ function print(){
             $("#ngm-report-extracted").css({ 'display': 'block' });
         });
         
-        // Create pdf
-        // page.render('/home/ubuntu/nginx/www/ngm-reportPrint/pdf/report_' + Math.round(new Date() / 1000) + '.pdf');
+        // remove existing
+        fs.remove('/home/ubuntu/nginx/www/ngm-reportPrint/pdf/' + report + '.pdf');
+
+        // create pdf
         page.render('/home/ubuntu/nginx/www/ngm-reportPrint/pdf/' + report + '.pdf');
         
+        // exit
         phantom.exit();
 
     }, pageLoadTime);
