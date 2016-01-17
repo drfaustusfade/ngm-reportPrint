@@ -119,8 +119,11 @@ function print(){
             $("#ngm-report-extracted").css({ 'display': 'block' });
         });
         
+        // export path
+        var path = '/home/ubuntu/nginx/www/ngm-reportPrint/pdf/' + report + '.pdf';
+
         // remove existing
-        fs.remove('/home/ubuntu/nginx/www/ngm-reportPrint/pdf/' + report + '.pdf');
+        if (fs.exists(path)) { fs.remove(path); }
 
         // create pdf
         page.render('/home/ubuntu/nginx/www/ngm-reportPrint/pdf/' + report + '.pdf');
