@@ -86,6 +86,7 @@ function print(){
 			$("#ngm-report").css({ 'padding-left': '90px' });
 			$("#ngm-report").css({ 'padding-right': '90px' });
 			// hide btns
+			$('.btn').css({ 'display': 'none' });
 			$("#ngm-report-download").css({ 'display': 'none' });
 			$(".ngm-profile-btn").css({ 'display': 'none' });
 			// navigation breadcrumb
