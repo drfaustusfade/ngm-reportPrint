@@ -95,6 +95,9 @@ function print(){
 			$(".ngm-menu-footer").css({ 'display': 'none' });
 			// title size adjustment
 			$("#ngm-report-title").css({ 'font-size': '3.1rem' });
+			// count size
+			$('.count').css({ 'font-size': '2rem' });
+			$('.count').css({ 'line-height': '2rem' });
 			// position date range 
 			$("#ngmDateContainer-0").css({ 'margin-top': '-54px', 'margin-left': '74%' });
 			$("#ngmDateContainer-1").css({ 'margin-top': '-54px' });
