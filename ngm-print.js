@@ -91,6 +91,8 @@ function print(){
 			$(".ngm-profile-btn").css({ 'display': 'none' });
 			// navigation breadcrumb
 			$("#ngm-breadcrumb").css({ 'display': 'none' });
+			// tabs breadcrumb
+			$("#ngm-tabs").css({ 'display': 'none' });			
 			// menu footer
 			$(".ngm-menu-footer").css({ 'display': 'none' });
 			// title size adjustment
