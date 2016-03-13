@@ -114,6 +114,8 @@ function print(){
 			});
 			// hide map controls
 			$(".leaflet-control-container").css({ 'display': 'none' });
+			// hide contact card
+			$("#ngm-contact").css({ 'display': 'none' });
 			// display download date
 			$("#ngm-report-extracted").css({ 'display': 'block' });
 		});
