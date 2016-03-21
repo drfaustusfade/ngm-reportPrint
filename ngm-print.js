@@ -90,6 +90,7 @@ function print(){
 			$('.btn').css({ 'display': 'none' });
 			$("#ngm-report-download").css({ 'display': 'none' });
 			$(".ngm-profile-btn").css({ 'display': 'none' });
+			$("#dashboard-btn").parent().parent().css({ "display": "none" });
 			// navigation breadcrumb
 			$("#ngm-breadcrumb").css({ 'display': 'none' });
 			// tabs breadcrumb
