@@ -22,7 +22,7 @@ var webPage = require('webpage');
 var page = webPage.create();
 page.settings.javascriptEnabled = true;
 // page.viewportSize = { width: 1024, height: 1448 };
-page.viewportSize = { width: 1420, height: 1448 };
+page.viewportSize = { width: 1280, height: 1448 };
 page.settings.loadImages = true; //Script is much faster with this field set to false
 phantom.cookiesEnabled = true;
 phantom.javascriptEnabled = true;
@@ -118,6 +118,9 @@ function print(){
 					}
 				});
 			});
+
+			// update all promo charts
+			$(".highchart-promo").css({ 'top': '40px', 'left': '10px' });
 			// hide map controls
 			$(".leaflet-control-container").css({ 'display': 'none' });
 			// hide contact card
