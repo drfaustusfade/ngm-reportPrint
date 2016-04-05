@@ -10,6 +10,8 @@ var report = args[1];
 var url = args[2];
 var token = args[3];
 var pageLoadTime = args[4];
+var viewportWidth = args[5] ? args[5] : 1200;
+var viewportHeight = args[6] ? args[6] : 1448;
 var user = {
 	"username": "print",
 	"roles": [ "USER" ]
@@ -21,9 +23,9 @@ user.token = token;
 var webPage = require('webpage');
 var page = webPage.create();
 page.settings.javascriptEnabled = true;
+page.settings.loadImages = true;
 // page.viewportSize = { width: 1024, height: 1448 };
-page.viewportSize = { width: 1200, height: 1448 };
-page.settings.loadImages = true; //Script is much faster with this field set to false
+page.viewportSize = { width: viewportWidth, height: viewportHeight };
 phantom.cookiesEnabled = true;
 phantom.javascriptEnabled = true;
 /*********SETTINGS END*****************/
@@ -107,7 +109,7 @@ function print(){
 			$("#ngmDateContainer-1").css({ 'margin-top': '-54px' });
 
 			// fix layout issue - for each row
-			$('.row.ng-isolate-scope').each(function(i, row){
+			$('.row').each(function(i, row){
 				// for each widget
 				$(row).children().each(function(j, w){
 					// if col is not full length
@@ -115,10 +117,18 @@ function print(){
 						// get width
 						var width = ((parseInt($(w).attr('class').slice(-1)) / 12) * 100).toFixed(2);
 						// update widget width
-						$(w).css({ 'width': width + '%' });
+						$(w).css({ 'width': width -1 + '%' });
 					}
 				});
 			});
+
+			// update text color
+			$('input').css({ 'color': '#000000' });
+			$('select').css({ 'color': '#000000' });
+			$('textarea').css({ 'color': '#000000' });
+			$('textarea').height($('textarea')[0].scrollHeight);
+			// health form items to remoce
+			$('.remove').css({ 'display': 'none' });
 
 			// update all promo charts
 			$(".highchart-promo").css({ 'top': '40px', 'left': '10px' });
