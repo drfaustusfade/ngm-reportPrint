@@ -114,12 +114,14 @@ function print(){
             $('.row').each(function(i, row){
                 // for each widget
                 $(row).children().each(function(j, w){
-                    // if col is not full length
-                    if ($(w).attr('class').search('l12') === -1) {
-                        // get width
-                        var width = ((parseInt($(w).attr('class').slice(-1)) / 12) * 100).toFixed(2);
-                        // update widget width
-                        $(w).css({ 'width': width -1 + '%' });
+                    if ( $(w).attr('class') ) {
+                        // if col is not full length
+                        if ($(w).attr('class').search('l12') === -1) {
+                            // get width
+                            var width = ((parseInt($(w).attr('class').slice(-1)) / 12) * 100).toFixed(2);
+                            // update widget width
+                            $(w).css({ 'width': width -1 + '%' });
+                        }                        
                     }
                 });
             });
