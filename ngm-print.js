@@ -6,18 +6,28 @@ var loadInProgress = false;
 //
 var fs = require('fs');
 var args = require('system').args;
-var report = args[1];
-var url = args[2];
-var token = args[3];
-var pageLoadTime = args[4];
-var viewportWidth = args[5] ? args[5] : 1200;
-var viewportHeight = args[6] ? args[6] : 1448;
+var report = args[1],
+    url = args[2],
+    username = args[3],
+    token = args[4],
+    adminRpcode = args[5],
+    adminRname = args[6],
+    admin0pcode = args[7],
+    admin0name = args[8],
+    pageLoadTime = args[9],
+    viewportWidth = args[10] ? args[10] : 1200,
+    viewportHeight = args[11] ? args[11] : 1448;
+    
+// construct
 var user = {
-    "username": "print",
-    "roles": [ "USER" ]
+    username: username,
+    token: token,
+    adminRpcode: adminRpcode,
+    adminRname: adminRname,
+    admin0pcode: admin0pcode,
+    admin0name: admin0name,
+    roles: [ "USER", "ADMIN" ]
 }
-// set token
-user.token = token;
 
 /*********SETTINGS*********************/
 var webPage = require('webpage');
