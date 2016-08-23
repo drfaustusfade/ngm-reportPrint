@@ -149,7 +149,8 @@ function print(){
             }
             
             // health form items to remoce
-            $('.remove').css({ 'display': 'none' });
+            // $('.remove').css({ 'display': 'none' });
+            $('.remove').remove();
 
             // update all promo charts
             $(".highchart-promo").css({ 'top': '40px', 'left': '10px' });
@@ -159,8 +160,9 @@ function print(){
             $("#ngm-contact").css({ 'display': 'none' });
             // display download date
             $("#ngm-report-extracted").css({ 'display': 'block' });
+
         });
-            
+
         // export path
         var path = '/home/ubuntu/nginx/www/ngm-reportPrint/pdf/' + report + '.pdf';
 
@@ -168,10 +170,12 @@ function print(){
         if (fs.exists(path)) { fs.remove(path); }
 
         // create pdf
-        page.render('/home/ubuntu/nginx/www/ngm-reportPrint/pdf/' + report + '.pdf');
-        
-        // exit
-        phantom.exit();
+        window.setTimeout( function(){
+            // render
+            page.render('/home/ubuntu/nginx/www/ngm-reportPrint/pdf/' + report + '.pdf');
+            // exit
+            phantom.exit();
+        }, 400 );
 
     }, pageLoadTime);
 }
