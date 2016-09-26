@@ -36,6 +36,7 @@ page.settings.javascriptEnabled = true;
 page.settings.loadImages = true;
 // page.viewportSize = { width: 1024, height: 1448 };
 page.viewportSize = { width: viewportWidth, height: viewportHeight };
+page.zoomFactor = 1.0199;
 phantom.cookiesEnabled = true;
 phantom.javascriptEnabled = true;
 /*********SETTINGS END*****************/
