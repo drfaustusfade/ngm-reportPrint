@@ -8,18 +8,20 @@ var fs = require('fs');
 var args = require('system').args;
 var report = args[1],
     url = args[2],
-    username = args[3],
-    token = args[4],
-    adminRpcode = args[5],
-    adminRname = args[6],
-    admin0pcode = args[7],
-    admin0name = args[8],
-    pageLoadTime = args[9],
-    viewportWidth = args[10] ? args[10] : 1200,
-    viewportHeight = args[11] ? args[11] : 1448;
+    cluster = args[3],
+    username = args[4],
+    token = args[5],
+    adminRpcode = args[6],
+    adminRname = args[7],
+    admin0pcode = args[8],
+    admin0name = args[9],
+    pageLoadTime = args[10],
+    viewportWidth = args[11] ? args[11] : 1200,
+    viewportHeight = args[12] ? args[12] : 1448;
     
 // construct
 var user = {
+    cluster: cluster,
     username: username,
     token: token,
     adminRpcode: adminRpcode,
@@ -58,6 +60,8 @@ steps = [
         page.open(url, function(status){
             page.evaluate(function(user){
                 // localStorage.clear();
+                console.log(user.cluster);
+                console.log(user.username);
                 localStorage.setItem('auth_token', JSON.stringify(user));
             }, user);
         });
