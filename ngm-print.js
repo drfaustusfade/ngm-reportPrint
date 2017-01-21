@@ -60,8 +60,6 @@ steps = [
         page.open(url, function(status){
             page.evaluate(function(user){
                 // localStorage.clear();
-                console.log(user.cluster);
-                console.log(user.username);
                 localStorage.setItem('auth_token', JSON.stringify(user));
             }, user);
         });
