@@ -6,29 +6,40 @@ var loadInProgress = false;
 //
 var fs = require('fs');
 var args = require('system').args;
+
 var report = args[1],
     url = args[2],
-    cluster = args[3],
-    username = args[4],
-    token = args[5],
-    adminRpcode = args[6],
-    adminRname = args[7],
-    admin0pcode = args[8],
-    admin0name = args[9],
-    pageLoadTime = args[10],
-    viewportWidth = args[11] ? args[11] : 1200,
-    viewportHeight = args[12] ? args[12] : 1448;
-    
+    adminRpcode = args[3],
+    adminRname = args[4],
+    admin0pcode = args[5],
+    admin0name = args[6],
+    cluster = args[7],
+    cluster_id = args[8],
+    organization = args[9],
+    organization_tag = args[10],
+    username = args[11],
+    roles = args[12],
+    token = args[13],
+    pageLoadTime = args[14],
+    viewportWidth = args[15] ? args[15] : 1200,
+    viewportHeight = args[16] ? args[16] : 1448;
+
+// setup roles
+roles = roles.indexOf(',') !== -1 ? roles.split(',') : [ roles ];
+
 // construct
 var user = {
-    cluster: cluster,
-    username: username,
-    token: token,
     adminRpcode: adminRpcode,
     adminRname: adminRname,
     admin0pcode: admin0pcode,
     admin0name: admin0name,
-    roles: [ "USER", "ADMIN" ]
+    cluster: cluster,
+    cluster_id: cluster_id,
+    organization: organization,
+    organization_tag: organization_tag,
+    username: username,
+    roles: roles,
+    token: token,
 }
 
 /*********SETTINGS*********************/
@@ -44,9 +55,6 @@ phantom.javascriptEnabled = true;
 /*********SETTINGS END*****************/
 
 console.log('All settings loaded, start with execution');
-page.onConsoleMessage = function(msg) {
-    console.log(msg);
-};
 
 /**********DEFINE STEPS THAT FANTOM SHOULD DO***********************/
 
