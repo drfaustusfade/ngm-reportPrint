@@ -178,7 +178,7 @@ function print(){
         var path = '/home/ubuntu/nginx/www/ngm-reportPrint/pdf/' + report + '.pdf';
 
         // remove existing
-        if (fs.exists(path)) { fs.remove(path); }
+        if ( fs.existsSync(path) ) { fs.unlink(path); }
 
         // create pdf
         window.setTimeout( function(){
