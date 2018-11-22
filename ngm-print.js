@@ -94,7 +94,7 @@ function executeRequestsStepByStep(){
         testindex++;
     }
     if (typeof steps[testindex] != "function") {
-        print();
+        // print();
         return;
     }
 }
@@ -205,4 +205,36 @@ page.onLoadFinished = function() {
 };
 page.onConsoleMessage = function(msg) {
     console.log(msg);
+};
+
+// request counter, new request timeout
+var count         = 0,
+    resourceWait  = 800;
+
+// wrapper for print function
+function doRender() {
+    console.log('PRINT');
+    print();
+}
+
+// on each request increase counter and clear wait timeout
+page.onResourceRequested = function (req) {
+    count += 1;
+    // console.log('> ' + count + ' ' + req.id + ' - ' + req.url);
+    clearTimeout(renderTimeout);
+};
+
+// on each request response decrease counter and call render if null
+page.onResourceReceived = function (res) {
+    if (!res.stage || res.stage === 'end') {
+        count -= 1;
+        // console.log('< ' + loadInProgress + ' ' + count + ' ' + res.id + ' ' + res.status + ' - ' + res.url);
+
+        // render if no requests and page loaded
+        // drawback is that counter can be null multiple times
+        // set resourceWait time to wait for new request
+        if (count === 0&&!loadInProgress) {
+            renderTimeout = setTimeout(function(){doRender();}, resourceWait);
+        }
+    }
 };
