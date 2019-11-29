@@ -15,19 +15,11 @@
 		format: 'A4',
 		orientation: 'portrait',
 		margin: {
-			top: '1cm',
-			bottom: '1cm',
-			left: '1cm',
-			right: '1cm',
+			top: '0.5cm',
+			bottom: '0.5cm',
+			left: '0.5cm',
+			right: '0.5cm',
 		},
-		// header: {
-		// 	height: '1.1cm',
-		// 	contents: phantom.callback( function() {
-		// 		return '' +
-		// 			'<h3 style="font-family: verdana, arial, sans-serif; font-size: 9px; margin:0px; font-weight: 300;">' + header_1 + '</h3>' +
-		// 			'<h3 style="font-family: verdana, arial, sans-serif; font-size: 8px; margin:0px 0px 10px 0px; color: #616161; font-weight: 300;">' + header_2 + '</h3>';
-		// 	})
-		// },
 		footer: {
 			height: '1cm',
 			contents: phantom.callback( function ( pageNum, numPages ) {
