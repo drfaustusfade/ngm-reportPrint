@@ -15,7 +15,7 @@
 		format: 'A4',
 		orientation: 'portrait',
 		margin: {
-			top: '0.5cm',
+			top: '0.2cm',
 			bottom: '0.5cm',
 			left: '0.5cm',
 			right: '0.5cm',
