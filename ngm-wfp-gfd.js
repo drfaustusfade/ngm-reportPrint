@@ -17,8 +17,8 @@
 		margin: {
 			top: '0.2cm',
 			bottom: '0.5cm',
-			left: '0.5cm',
-			right: '0.5cm',
+			left: '0.4cm',
+			right: '0.4cm',
 		},
 		footer: {
 			height: '1cm',
